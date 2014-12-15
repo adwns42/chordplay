@@ -35,9 +35,7 @@ group :development, :test do
   gem "awesome_print"
   gem "byebug"
   gem "dotenv-rails"
-  gem "factory_girl_rails"
   gem "pry-rails"
-  gem "rspec-rails", "~> 3.0.0"
 end
 
 group :test do
