@@ -49,6 +49,7 @@ class UltimateGuitarScraper
     find_potential_chords
     remove_potential_chord_duplicates
     collect_chords_if_real
+    standardize_chord_notation
   end
 
   def find_potential_chords
@@ -62,8 +63,17 @@ class UltimateGuitarScraper
   end
 
   def collect_chords_if_real
-    song_attributes[:chords] = potential_chords.map do |element|
-      element if CHORD_REFERENCE.include? element
+    song_attributes[:chords] = potential_chords.map do |potential_chord|
+      potential_chord if CHORD_REFERENCE.include? potential_chord
+    end
+    song_attributes[:chords].compact!
+  end
+
+  def standardize_chord_notation
+    song_attributes[:chords].each do |chord|
+      chord.gsub!(/(M|Maj|Major)/, "maj")
+      chord.gsub!(/maj\b/, "")
+      chord.gsub!(/(Minor|minor)/, "m")
     end
   end
 

@@ -4,7 +4,7 @@ require "rubygems"
 
 class UltimateGuitarCrawler
   def initialize
-    @saver = UltimateGuitarSongSaver.new
+    @saver = UltimateGuitarDbWriter.new
     @scraper = UltimateGuitarScraper.new
     @search_strings = assemble_search_strings.flatten
     @song_count = 0
@@ -12,6 +12,7 @@ class UltimateGuitarCrawler
 
   def run_advanced_search
     search_strings.each do |search_string|
+      puts "Running advanced search with string '#{search_string}'"
       self.search_string = search_string
       collect_song_links
       scrape_song_info_to_database
@@ -42,6 +43,7 @@ class UltimateGuitarCrawler
   def collect_song_links
     self.song_links = []
     (1..10).each do |page_num|
+      puts "Inspecting results page #{page_num}"
       create_parsable_results_page(page_num)
       break if no_results? == true
       parse_page_for_real_links

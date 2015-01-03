@@ -1,7 +1,8 @@
-require "./guitar_chord_dictionary.rb"
-require "./ultimate_guitar_crawler.rb"
-require "./ultimate_guitar_scraper.rb"
-require "./ultimate_guitar_song_saver.rb"
+require_relative "./guitar_chord_dictionary.rb"
+require_relative "./ultimate_guitar_crawler.rb"
+require_relative "./ultimate_guitar_db_writer.rb"
+require_relative "./ultimate_guitar_scraper.rb"
+# require_relative "ultimate_guitar_song_saver.rb"
 
 user_agent_string = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1)"\
                     "AppleWebKit/537.36 (KHTML, like Gecko)"\
