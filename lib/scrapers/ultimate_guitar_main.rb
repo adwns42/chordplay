@@ -11,7 +11,7 @@ user_agent_string = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1)"\
 
 HEADERS_HASH = {"User-Agent" => user_agent_string}
 SONG_RATING = 5
-SLEEP_TIME = 1
+SLEEP_TIME = (1.0/2.0)
 
 CHORD_REFERENCE = GuitarChordDictionary.new.read
 

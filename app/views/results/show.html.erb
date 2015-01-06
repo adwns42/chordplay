@@ -1,0 +1,24 @@
+<h6>
+  <% search_params = params[:search].split(/,\s+/) %>
+  <% last_param = search_params.pop %>
+  <%= "Found #{@songs.count} songs including only the chords "\
+    "#{search_params.join(",\s")}, and #{last_param}" %>
+</h6>
+
+<ul>
+  <% @songs.each do |song| %>
+    <li>
+      <div><%= song.title %></div>
+      <div>
+        Artist: <a href="https://www.google.com/#q=<%=
+          song.artist.gsub(/\s+/, "+") %>+songs" target="blank">
+          <%= song.artist %></a>
+      </div>
+      <div><%= "Chords: #{song.chords.map(&:name).join(', ')}" %></div>
+      <div>
+        Link: <a href="<%= song.source_url %>" target="blank">
+        <%= song.source_url %></a>
+      </div>
+    </li>
+  <% end %>
+</ul>

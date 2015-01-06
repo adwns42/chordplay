@@ -33,8 +33,8 @@ class UltimateGuitarCrawler
   attr_reader :saver, :scraper
 
   def assemble_search_strings
-    ("a".."z").map do |first_letter|
-      ("a".."z").map do |second_letter|
+    ("A".."Z").map do |first_letter|
+      ("A".."Z").map do |second_letter|
         first_letter + second_letter
       end
     end
