@@ -3,11 +3,11 @@
     <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
   <% end %>
 
-  <% if controller_name != "sessions" %>
+  <% if controller_name != "sessions" && user_signed_in? == false %>
     <%= link_to "Sign In", new_user_session_path %>
   <% end %>
 
-  <% if controller_name != "registrations" %>
+  <% if controller_name != "registrations" && user_signed_in? == false %>
     <%= link_to "Sign Up", new_user_registration_path %>
   <% end %>
 </div>
