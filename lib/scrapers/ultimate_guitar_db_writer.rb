@@ -15,21 +15,18 @@ class UltimateGuitarDbWriter
         source_url: link
       )
       if song.save
-        create_chord_associations(info)
-        puts "#{info[:title]} written to DB"
+        create_chord_associations(info[:chords].flatten)
+        puts "***#{info[:title]} written to DB***"
       else
-        puts "#{info[:title]} did not pass validation"
+        puts "***#{info[:title]} did not pass validation***"
       end
     end
   end
 
-  def create_chord_associations(info)
-    chord_names = info[:chords]
+  def create_chord_associations(chord_names)
     chord_names.each do |chord_name|
-      unless chord_name == nil
         chord = Chord.find_by(name: chord_name)
         song.chords << chord
-      end
     end
   end
 end
