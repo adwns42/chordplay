@@ -30,8 +30,8 @@ class UltimateGuitarCrawler
 
   attr_reader :saver, :scraper
 
-  def assemble_search_strings
-    ("B".."Z").map do |first_letter|
+  def assemble_search_strings         #currently in: CO
+    ("A".."Z").map do |first_letter|
       ("A".."Z").map do |second_letter|
         first_letter + second_letter
       end
@@ -94,11 +94,7 @@ class UltimateGuitarCrawler
     song_links.each do |song_link|
       scraped_info = scraper.scrape(song_link)
       saver.save(scraped_info, song_link)
-      give_scraped_songs_count
+      puts "#{Song.count(:id)} songs saved"
     end
-  end
-
-  def give_scraped_songs_count
-    puts "#{Song.count(:id)} songs saved"
   end
 end

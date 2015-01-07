@@ -1,9 +1,5 @@
 <%= render "search_form" %>
 
-<h6>
-  <%= render "results_info", songs: @songs, search_params: params[:search] %>
-</h6>
+<%= render "results_info", songs: @songs, search_params: params[:search] %>
 
-<div>
-  <%= render "results_list", songs: @songs %>
-</div>
+<%= render "results_list", songs: @songs %>

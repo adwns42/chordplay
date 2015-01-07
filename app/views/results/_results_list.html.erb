@@ -1,19 +1,40 @@
+<div>
 <ul>
   <% songs.each do |song| %>
-    <div class="comment"><li>
-        <div class="comment-content">
-      <h3><%= song.title %></h3>
-      <p>
-        Artist: <a href="https://www.google.com/#q=<%=
+    <div class="comment">
+      <li>
+      <div class="comment-content">
+
+        <div>
+          <a href="<%= song.source_url %>" target="blank">
+            <h4><%= song.title %></h4>
+          </a>
+        </div>
+
+        <div>
+          Artist: <a href="https://www.google.com/#q=<%=
           song.artist.gsub(/\s+/, "+") %>+songs" target="blank">
           <%= song.artist %></a>
-      </p>
-      <div><%= "Chords: #{song.chords.map(&:name).join(', ')}" %></div>
-      <div>
-        Link: <a href="<%= song.source_url %>" target="blank">
-        <%= song.source_url %></a>
-      </div>
         </div>
-      </li></div>
+
+        <div>
+          <%= "Chords: #{song.chords.map(&:name).join(', ')}" %>
+        </div>
+
+        <div>
+          <% if user_signed_in? %>
+            <% if current_user.bookmarked? song %>
+              <%= button_to "Unbookmark", song_bookmark_path(song),
+              method: :delete %>
+            <% else %>
+              <%= button_to "Bookmark", song_bookmark_path(song) %>
+            <% end %>
+          <% end %>
+        </div>
+
+      </div>
+      </li>
+    </div>
   <% end %>
 </ul>
+</div>

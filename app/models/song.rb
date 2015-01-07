@@ -1,5 +1,6 @@
 class Song < ActiveRecord::Base
   has_and_belongs_to_many :chords
+  has_many :bookmarks
 
   validates :source_url, presence: true, uniqueness: true
   validates :title, presence: true

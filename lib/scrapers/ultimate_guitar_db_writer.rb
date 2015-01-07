@@ -15,7 +15,7 @@ class UltimateGuitarDbWriter
         source_url: link
       )
       if song.save
-        create_chord_associations(info[:chords].flatten)
+        create_chord_associations(info[:chords])
         puts "***#{info[:title]} written to DB***"
       else
         puts "***#{info[:title]} did not pass validation***"

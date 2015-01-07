@@ -1,0 +1,5 @@
+<div>
+  <% if controller_name != "users" && user_signed_in? %>
+    <%= link_to "Bookmarks", user_path(current_user) %>
+  <% end %>
+</div>
