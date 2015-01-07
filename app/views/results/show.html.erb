@@ -4,21 +4,24 @@
   <%= "Found #{@songs.count} songs including only the chords "\
     "#{search_params.join(",\s")}, and #{last_param}" %>
 </h6>
-
+<div>
 <ul>
   <% @songs.each do |song| %>
-    <li>
-      <div><%= song.title %></div>
-      <div>
+    <div class="comment"><li>
+        <div class="comment-content">
+      <h3><%= song.title %></h3>
+      <p>
         Artist: <a href="https://www.google.com/#q=<%=
           song.artist.gsub(/\s+/, "+") %>+songs" target="blank">
           <%= song.artist %></a>
-      </div>
+      </p>
       <div><%= "Chords: #{song.chords.map(&:name).join(', ')}" %></div>
       <div>
         Link: <a href="<%= song.source_url %>" target="blank">
         <%= song.source_url %></a>
       </div>
-    </li>
+        </div>
+      </li></div>
   <% end %>
 </ul>
+</div>
