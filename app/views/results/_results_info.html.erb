@@ -1,0 +1,19 @@
+<% params_array = search_params.split(/,\s+/) %>
+<% params_count = params_array.count %>
+<% last_param = params_array.pop %>
+
+<% song_count = songs.count %>
+
+<% if song_count == 1 %>
+  <%= "Found 1 song including only the " %>
+<% else %>
+  <%= "Found #{song_count} songs including only the " %>
+<% end %>
+
+<% if params_count == 1 %>
+  <%= "chord #{last_param}" %>
+<% elsif params_count == 2 %>
+  <%= "chords #{params_array.join(",\s")} and #{last_param}" %>
+<% else %>
+  <%= "chords #{params_array.join(",\s")}, and #{last_param}" %>
+<% end %>
