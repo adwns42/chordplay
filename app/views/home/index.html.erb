@@ -1,1 +1,8 @@
+<% unless user_signed_in? %>
+  <div>
+    Input chords separated by commas and spaces to see songs containing
+    only those chords.
+  </div>
+<% end %>
+
 <%= render "search_form" %>
