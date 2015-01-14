@@ -1,4 +1,3 @@
-
 source "https://rubygems.org"
 
 ruby "2.1.5"
@@ -15,6 +14,7 @@ gem "i18n-tasks"
 gem "jquery-rails"
 gem "neat", "~> 1.5.1"
 gem "newrelic_rpm"
+gem "nokogiri"
 gem "normalize-rails", "~> 3.0.0"
 gem "pg"
 gem "rack-timeout"
