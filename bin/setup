@@ -36,21 +36,21 @@ fi
 # fi
 
 # Set up the staging and production apps.
-if heroku join --app reverse-tab-search-staging &> /dev/null; then
-  git remote add staging git@heroku.com:reverse-tab-search-staging.git || true
-  printf 'You are a collaborator on the "reverse-tab-search-staging" Heroku app
+if heroku join --app chordplay-staging &> /dev/null; then
+  git remote add staging git@heroku.com:chordplay-staging.git || true
+  printf 'You are a collaborator on the "chordplay-staging" Heroku app
 '
 else
-  printf 'Ask for access to the "reverse-tab-search-staging" Heroku app
+  printf 'Ask for access to the "chordplay-staging" Heroku app
 '
 fi
 
-if heroku join --app reverse-tab-search-production &> /dev/null; then
-  git remote add production git@heroku.com:reverse-tab-search-production.git || true
-  printf 'You are a collaborator on the "reverse-tab-search-production" Heroku app
+if heroku join --app chordplay-production &> /dev/null; then
+  git remote add production git@heroku.com:chordplay-production.git || true
+  printf 'You are a collaborator on the "chordplay-production" Heroku app
 '
 else
-  printf 'Ask for access to the "reverse-tab-search-production" Heroku app
+  printf 'Ask for access to the "chordplay-production" Heroku app
 '
 fi
 

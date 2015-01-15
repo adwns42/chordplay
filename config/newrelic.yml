@@ -1,5 +1,5 @@
 common: &default_settings
-  app_name: "reverse-tab-search"
+  app_name: "chordplay"
   audit_log:
     enabled: false
   browser_monitoring:
@@ -30,5 +30,5 @@ production:
   monitor_mode: true
 staging:
   <<: *default_settings
-  app_name: "reverse-tab-search (Staging)"
+  app_name: "chordplay (Staging)"
   monitor_mode: true
