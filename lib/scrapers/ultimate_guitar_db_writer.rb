@@ -12,11 +12,13 @@ class UltimateGuitarDbWriter
       self.song = Song.new(
         title: info[:title],
         artist: info[:artist],
-        source_url: link
+        source_url: link,
+        chords_count: info[:chords_count]
       )
       if song.save
         create_chord_associations(info[:chords])
-        puts "***#{info[:title]} written to DB***"
+        puts "***#{info[:title]} written to DB with #{info[:chords_count]} "\
+          "chords***"
       else
         puts "***#{info[:title]} did not pass validation***"
       end

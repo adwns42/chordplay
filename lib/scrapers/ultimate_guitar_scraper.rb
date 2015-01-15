@@ -10,13 +10,10 @@ class UltimateGuitarScraper
   private
 
   attr_accessor(
-    :artist,
-    :chords,
     :n_page,
     :potential_chords,
     :song_attributes,
     :song_page,
-    :title,
     :version
   )
 
@@ -37,6 +34,7 @@ class UltimateGuitarScraper
   def get_song_attributes
     get_artist
     get_chords
+    get_chords_count
     get_version
     make_title
   end
@@ -75,6 +73,10 @@ class UltimateGuitarScraper
       chord.gsub!(/maj\b/, "")
       chord.gsub!(/(Minor|minor)/, "m")
     end
+  end
+
+  def get_chords_count
+    song_attributes[:chords_count] = song_attributes[:chords].count
   end
 
   def get_version

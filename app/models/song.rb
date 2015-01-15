@@ -23,7 +23,7 @@ class Song < ActiveRecord::Base
       where(chords: {name: searched_chords}).
       group("songs.id").
       having("COUNT(chords.id) = #{searched_chords.count}").
-      map(&:id)
+      pluck(:id)
     ).
     order(artist: :asc)
   end
