@@ -6,8 +6,7 @@ class UltimateGuitarCrawler
   def initialize
     @saver = UltimateGuitarDbWriter.new
     @scraper = UltimateGuitarScraper.new
-    @search_strings = ["CO", "CR"]
-    #@search_strings = assemble_search_strings.flatten
+    @search_strings = assemble_search_strings.flatten
   end
 
   def run_advanced_search
@@ -32,7 +31,7 @@ class UltimateGuitarCrawler
 
   attr_reader :saver, :scraper
 
-  def assemble_search_strings         #currently in: CR
+  def assemble_search_strings
     ("A".."Z").map do |first_letter|
       ("A".."Z").map do |second_letter|
         first_letter + second_letter
@@ -100,14 +99,14 @@ class UltimateGuitarCrawler
 
   def scrape_song_info_to_database
     if song_links.any?
-      puts "#{song_links.count} new songs found for this search string"
+      puts "#{song_links.count} new songs found"
       song_links.each do |song_link|
         scraped_info = scraper.scrape(song_link)
         saver.save(scraped_info, song_link)
         puts "#{Song.count(:id)} songs saved"
       end
     else
-      puts "No new songs found for this search string"
+      puts "No new songs found"
     end
   end
 end
