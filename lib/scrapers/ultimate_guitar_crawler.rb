@@ -1,8 +1,8 @@
-require "nokogiri"
-require "open-uri"
-require "rubygems"
-
 class UltimateGuitarCrawler
+  require "nokogiri"
+  require "open-uri"
+  require "rubygems"
+
   def initialize
     @saver = UltimateGuitarDbWriter.new
     @scraper = UltimateGuitarScraper.new
@@ -17,6 +17,8 @@ class UltimateGuitarCrawler
       remove_song_links_already_in_database
       scrape_song_info_to_database
     end
+    puts "Finished scraping."
+    exit
   end
 
   private
@@ -52,8 +54,10 @@ class UltimateGuitarCrawler
 
   def create_parsable_results_page(page_num)
     url = get_results_page_url(page_num)
-    open_results_page(url)
+    attempts_failed = 0
+    open_results_page(url, attempts_failed)
     convert_results_page_to_nokogiri_doc
+    results_page.close
   end
 
   def get_results_page_url(page_num)
@@ -63,9 +67,24 @@ class UltimateGuitarCrawler
     "tab_type_group=text&app_name=ugt&order=myweight"
   end
 
-  def open_results_page(url)
-    self.results_page = open(url, HEADERS_HASH)
-    sleep SLEEP_TIME
+  def open_results_page(url, attempts_failed)
+    if attempts_failed < 5
+      begin
+        self.results_page = open(url, HEADERS_HASH)
+        sleep SLEEP_TIME
+      rescue OpenURI::HTTPError => error
+        puts "***HTTP ERROR #{error.io.status[0]}, TRYING AGAIN IN 5***"
+        results_page.close
+        sleep 5
+
+        attempts_failed += 1
+        open_results_page(url, attempts_failed)
+        sleep SLEEP_TIME
+      end
+    else
+      puts "***FAILED 5 TIMES, EXITING***"
+      exit
+    end
   end
 
   def convert_results_page_to_nokogiri_doc

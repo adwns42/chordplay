@@ -18,13 +18,30 @@ class UltimateGuitarScraper
   )
 
   def create_parsable_song_page(link)
-    open_song_page(link)
+    attempts_failed = 0
+    open_song_page(link, attempts_failed)
     convert_song_page_to_nokogiri
+    song_page.close
   end
 
-  def open_song_page(link)
-    self.song_page = open(link, HEADERS_HASH)
-    sleep SLEEP_TIME
+  def open_song_page(link, attempts_failed)
+    if attempts_failed < 5
+      begin
+        self.song_page = open(link, HEADERS_HASH)
+        sleep SLEEP_TIME
+      rescue OpenURI::HTTPError => error
+        puts "***HTTP ERROR #{error.io.status[0]}, TRYING AGAIN IN 5***"
+        song_page.close
+        sleep 5
+
+        attempts_failed += 1
+        open_song_page(link, attempts_failed)
+        sleep SLEEP_TIME
+      end
+    else
+      puts "***FAILED 5 TIMES, EXITING***"
+      exit
+    end
   end
 
   def convert_song_page_to_nokogiri
