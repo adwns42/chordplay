@@ -6,7 +6,8 @@ class UltimateGuitarCrawler
   def initialize
     @saver = UltimateGuitarDbWriter.new
     @scraper = UltimateGuitarScraper.new
-    @search_strings = assemble_search_strings.flatten
+    @search_strings = ["CO", "CR"]
+    #@search_strings = assemble_search_strings.flatten
   end
 
   def run_advanced_search
@@ -14,6 +15,7 @@ class UltimateGuitarCrawler
       puts "Running advanced search with string '#{search_string}'"
       self.search_string = search_string
       collect_song_links
+      remove_song_links_already_in_database
       scrape_song_info_to_database
     end
   end
@@ -30,7 +32,7 @@ class UltimateGuitarCrawler
 
   attr_reader :saver, :scraper
 
-  def assemble_search_strings         #currently in: CO
+  def assemble_search_strings         #currently in: CR
     ("A".."Z").map do |first_letter|
       ("A".."Z").map do |second_letter|
         first_letter + second_letter
@@ -46,6 +48,7 @@ class UltimateGuitarCrawler
       break if no_results? == true
       parse_page_for_real_links
     end
+    song_links.uniq!
   end
 
   def create_parsable_results_page(page_num)
@@ -90,11 +93,21 @@ class UltimateGuitarCrawler
     end
   end
 
+  def remove_song_links_already_in_database
+    song_links_in_db = Song.pluck(:source_url)
+    self.song_links = song_links - song_links_in_db
+  end
+
   def scrape_song_info_to_database
-    song_links.each do |song_link|
-      scraped_info = scraper.scrape(song_link)
-      saver.save(scraped_info, song_link)
-      puts "#{Song.count(:id)} songs saved"
+    if song_links.any?
+      puts "#{song_links.count} new songs found for this search string"
+      song_links.each do |song_link|
+        scraped_info = scraper.scrape(song_link)
+        saver.save(scraped_info, song_link)
+        puts "#{Song.count(:id)} songs saved"
+      end
+    else
+      puts "No new songs found for this search string"
     end
   end
 end
