@@ -5,27 +5,22 @@ class UltimateGuitarDbWriter
 
   private
 
-  attr_accessor :song
-
   def add_song_to_db(info, link)
-    unless Song.exists?(source_url: link)
-      self.song = Song.new(
-        title: info[:title],
-        artist: info[:artist],
-        source_url: link,
-        chords_count: info[:chords_count]
-      )
-      if song.save
-        create_chord_associations(info[:chords])
-        puts "***#{info[:title]} written to DB with #{info[:chords_count]} "\
-          "chords***"
-      else
-        puts "***#{info[:title]} did not pass validation***"
-      end
+    song = Song.new(
+      title: info[:title],
+      artist: info[:artist],
+      source_url: link,
+    )
+    if song.save
+      create_chord_associations(song, info[:chords])
+      puts "***#{info[:title]} written to DB with #{song.chords_count} "\
+      "chords***"
+    else
+      puts "***#{info[:title]} did not pass validation***"
     end
   end
 
-  def create_chord_associations(chord_names)
+  def create_chord_associations(song, chord_names)
     chord_names.each do |chord_name|
         chord = Chord.find_by(name: chord_name)
         song.chords << chord
