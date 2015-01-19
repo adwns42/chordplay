@@ -5,6 +5,12 @@
         placeholder: "D, G, C, Em, Am" %>
     </div>
     <div>
+      <%= check_box_tag :fewer, true, params[:fewer] %>
+      <%= label_tag :fewer, "Include songs with fewer chords" %>
+      <%= check_box_tag :more, true, params[:more] %>
+      <%= label_tag :more, "Include songs with more chords" %>
+    </div>
+    <div>
       <%= submit_tag "Search", name: nil %>
     </div>
   <% end %>
