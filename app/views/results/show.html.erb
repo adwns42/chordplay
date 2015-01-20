@@ -3,3 +3,5 @@
 <%= render "results_info", songs: @songs, search_params: params[:search] %>
 
 <%= render "results_list", songs: @songs %>
+
+<%= paginate @songs %>
