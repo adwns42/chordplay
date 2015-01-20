@@ -1,6 +1,10 @@
 <%= render "search_form" %>
 
-<%= render "results_info", songs: @songs, search_params: params[:search] %>
+<%= render(
+  "results_info",
+  songs: @songs,
+  search_params: params[:search],
+  option: params[:option]) %>
 
 <%= render "results_list", songs: @songs %>
 

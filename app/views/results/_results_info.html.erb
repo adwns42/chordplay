@@ -1,15 +1,9 @@
-<% params_array = search_params.split(/,\s+/) %>
-<% params_count = params_array.count %>
-<% last_param = params_array.pop %>
-
-<% song_count = songs.total_count %>
-
 <h6>
-  <% if song_count == 1 %>
-    <%= "Found 1 song including only the " %>
-  <% else %>
-    <%= "Found #{song_count} songs including only the " %>
-  <% end %>
+  <%= "Found #{pluralize(songs.total_count, "song")} including only the " %>
+
+  <% params_array = search_params.split(/,\s+/) %>
+  <% params_count = params_array.count %>
+  <% last_param = params_array.pop %>
 
   <% if params_count == 1 %>
     <%= "chord #{last_param}" %>

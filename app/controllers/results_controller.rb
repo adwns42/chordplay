@@ -1,9 +1,10 @@
 class ResultsController < ApplicationController
   def show
     if params[:search] == ""
-      redirect_to root_path
+      redirect_to :back
     else
-      @songs = Song.search(params[:search], params[:fewer], params[:more]).
+      @songs = Song.
+        search(params[:search], params[:option]).
         page(params[:page])
     end
   end

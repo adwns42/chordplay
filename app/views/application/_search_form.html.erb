@@ -5,10 +5,18 @@
         placeholder: "D, G, C, Em, Am" %>
     </div>
     <div>
-      <%= check_box_tag :fewer, true, params[:fewer] %>
-      <%= label_tag :fewer, "Include songs with fewer chords" %>
-      <%= check_box_tag :more, true, params[:more] %>
-      <%= label_tag :more, "Include songs with more chords" %>
+      <%= radio_button_tag :option, "fewer", params[:option] == "fewer" %>
+      <%= label_tag(
+        :option_fewer,
+        "Include songs with fewer of these chords") %>
+      <%= radio_button_tag :option, "more", params[:option] == "more" %>
+      <%= label_tag(
+        :option_more,
+        "Include songs with more than these chords") %>
+      <%= radio_button_tag :option, "any", params[:option] == "any" %>
+      <%= label_tag(
+        :option_any,
+        "Include all songs with any of these chords") %>
     </div>
     <div>
       <%= submit_tag "Search", name: nil %>
