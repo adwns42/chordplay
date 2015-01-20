@@ -4,19 +4,36 @@
       <%= text_field_tag :search, params[:search],
         placeholder: "D, G, C, Em, Am" %>
     </div>
+    <h5>Search for songs containing:</h5>
     <div>
+      <%= radio_button_tag(
+        :option,
+        "exact",
+        if params[:option].nil? || params[:option] == "exact"
+          true
+        else
+          false
+        end
+      ) %>
+      <%= label_tag(
+        :option_exact,
+        "Exactly these chords"
+      ) %>
       <%= radio_button_tag :option, "fewer", params[:option] == "fewer" %>
       <%= label_tag(
         :option_fewer,
-        "Include songs with fewer of these chords") %>
+        "One or more of only these chords"
+      ) %>
       <%= radio_button_tag :option, "more", params[:option] == "more" %>
       <%= label_tag(
         :option_more,
-        "Include songs with more than these chords") %>
+        "All these chords and more"
+      ) %>
       <%= radio_button_tag :option, "any", params[:option] == "any" %>
       <%= label_tag(
         :option_any,
-        "Include all songs with any of these chords") %>
+        "Any of these chords and more"
+      ) %>
     </div>
     <div>
       <%= submit_tag "Search", name: nil %>
