@@ -1,6 +1,7 @@
 class Song < ActiveRecord::Base
   has_and_belongs_to_many :chords
   has_many :bookmarks
+  has_many :users, through: :bookmarks
 
   validates :source_url, presence: true, uniqueness: true
   validates :title, presence: true
@@ -32,14 +33,12 @@ class Song < ActiveRecord::Base
 
   def self.get_songs_with_same_num_chords_as(searched_chords)
     select(:*).
-      includes(:chords).
       where("chords_count <= ?", searched_chords.count).
       where(id: self.joins(:chords).
         where(chords: {name: searched_chords}).
         group("songs.id").
         pluck(:id)
-      ).
-      order(artist: :asc)
+      )
   end
 
   def self.songs_with_only_searched_chords(potential_songs, searched_chords)
@@ -62,37 +61,31 @@ class Song < ActiveRecord::Base
 
   def self.get_songs_including_more_than(searched_chords)
     select(:*).
-      includes(:chords).
       where(id: self.joins(:chords).
         where(chords: {name: searched_chords}).
         group("songs.id").
         having("COUNT(chords.id) = ?", searched_chords.count).
         pluck(:id)
-      ).
-      order(artist: :asc)
+      )
   end
 
   def self.get_songs_including_any(searched_chords)
     select(:*).
-      includes(:chords).
       where(id: self.joins(:chords).
         where(chords: {name: searched_chords}).
         group("songs.id").
         pluck(:id)
-      ).
-      order(artist: :asc)
+      )
   end
 
   def self.get_songs_including_exactly(searched_chords)
     select(:*).
-      includes(:chords).
       where("chords_count = ?", searched_chords.count).
       where(id: self.joins(:chords).
         where(chords: {name: searched_chords}).
         group("songs.id").
         having("COUNT(chords.id) = ?", searched_chords.count).
         pluck(:id)
-      ).
-      order(artist: :asc)
+      )
   end
 end

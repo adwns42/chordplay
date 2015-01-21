@@ -23,9 +23,12 @@
 
         <div>
           <% if user_signed_in? %>
-            <% if current_user.bookmarked? song %>
-              <%= button_to "Unbookmark", song_bookmark_path(song),
-              method: :delete %>
+            <% if song.users.include? current_user %>
+              <%= button_to(
+                "Unbookmark",
+                song_bookmark_path(song),
+                method: :delete
+              ) %>
             <% else %>
               <%= button_to "Bookmark", song_bookmark_path(song) %>
             <% end %>
