@@ -5,9 +5,6 @@ class ResultsController < ApplicationController
     else
       @songs = Song.
         search(params[:search], params[:option]).
-        includes(:chords).
-        includes(:users).
-        order(artist: :asc).
         page(params[:page])
     end
   end
