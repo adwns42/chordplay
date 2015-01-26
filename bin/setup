@@ -36,12 +36,12 @@ fi
 # fi
 
 # Set up the staging and production apps.
-if heroku join --app chordplay-staging &> /dev/null; then
-  git remote add staging git@heroku.com:chordplay-staging.git || true
-  printf 'You are a collaborator on the "chordplay-staging" Heroku app
+if heroku join --app chordplay &> /dev/null; then
+  git remote add staging git@heroku.com:chordplay.git || true
+  printf 'You are a collaborator on the "chordplay" Heroku app
 '
 else
-  printf 'Ask for access to the "chordplay-staging" Heroku app
+  printf 'Ask for access to the "chordplay" Heroku app
 '
 fi
 
